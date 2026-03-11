@@ -12,6 +12,7 @@ public class DayManager : MonoBehaviour
     int daysPassed;
     float target;
     bool isDay = true;
+    float dayCounter;
 
     void Awake()
     {
@@ -47,6 +48,7 @@ public class DayManager : MonoBehaviour
         lightObject.color = Color.Lerp(currColor, targetColor, target);
         if(target >= 1f)
         {
+            dayCounter += 0.5f;  //convert to int when showing
             isDay = !isDay;
             target = 0f;
         }
@@ -56,4 +58,6 @@ public class DayManager : MonoBehaviour
     {
         lightObject.intensity = Mathf.Lerp(currIntensity, targetIntensity, target);
     }
+
+
 }

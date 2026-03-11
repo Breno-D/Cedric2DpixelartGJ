@@ -10,6 +10,7 @@ public class PlayerItems : MonoBehaviour
     int cookedFish;
     int carrot;
     int seeds;
+    int foodCurrSelected;
 
     void Awake()
     {
@@ -63,4 +64,28 @@ public class PlayerItems : MonoBehaviour
         carrot += value;
     }
 
+    public void SelectFood(int foodToSelect)
+    {
+        foodCurrSelected = foodToSelect;
+    }
+
+    public float GetHungerHealAmount()
+    {
+        if(foodCurrSelected == 1 && carrot > 0)
+        {
+            float hungerHealAmount = Random.Range(5f, 20f);
+            carrot -= 1;
+            return hungerHealAmount;
+        }
+        else if(foodCurrSelected == 2 && cookedFish > 0)
+        {
+            float hungerHealAmount = Random.Range(25f, 50f);
+            cookedFish -= 1;
+            return hungerHealAmount;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
 }

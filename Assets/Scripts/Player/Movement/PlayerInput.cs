@@ -12,12 +12,25 @@ public class PlayerInput : MonoBehaviour
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Interact.performed += ctx => InteractFunc();
+        playerInputActions.Player.Food1.performed += ctx => SelectFood(1);
+        playerInputActions.Player.Food2.performed += ctx => SelectFood(2);
+        playerInputActions.Player.Eat.performed += ctx => EatFood();
         interactEvent = new UnityEvent();
     }
 
     void InteractFunc()
     {
         interactEvent.Invoke();
+    }
+
+    void SelectFood(int foodSelected)
+    {
+        PlayerItems.instance.SelectFood(foodSelected);
+    }
+
+    void EatFood()
+    {
+        GetComponent<HungerCounter>().AddHunger(GetComponent<PlayerItems>().GetHungerHealAmount());
     }
 
     public UnityEvent GetInteractEvent()

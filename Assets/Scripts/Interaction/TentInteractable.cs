@@ -13,7 +13,7 @@ public class TentInteractable : InteractableObject
     {
         yield return null;
         // create player tiredness first
-        // player rest X amount or gt full
+        FindObjectOfType<SleepCounter>().PlayerSleep();
         // change day
     }
 }
