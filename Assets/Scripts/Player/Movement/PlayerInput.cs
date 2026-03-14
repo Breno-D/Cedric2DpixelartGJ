@@ -7,14 +7,15 @@ public class PlayerInput : MonoBehaviour
 {
     PlayerInputActions playerInputActions;
     UnityEvent interactEvent;
+    Animator playerAnim; 
 
     void Awake()
     {
+        playerAnim = GetComponent<Animator>();
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Interact.performed += ctx => InteractFunc();
         playerInputActions.Player.Food1.performed += ctx => SelectFood(1);
         playerInputActions.Player.Food2.performed += ctx => SelectFood(2);
-        playerInputActions.Player.Eat.performed += ctx => EatFood();
         interactEvent = new UnityEvent();
     }
 
@@ -28,11 +29,6 @@ public class PlayerInput : MonoBehaviour
         PlayerItems.instance.SelectFood(foodSelected);
     }
 
-    void EatFood()
-    {
-        GetComponent<HungerCounter>().AddHunger(GetComponent<PlayerItems>().GetHungerHealAmount());
-    }
-
     public UnityEvent GetInteractEvent()
     {
         return interactEvent;
@@ -40,15 +36,34 @@ public class PlayerInput : MonoBehaviour
 
     public Vector2 GetMoveValue()
     {
-        return playerInputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 vectorToReturn = playerInputActions.Player.Move.ReadValue<Vector2>();
+        if(vectorToReturn == Vector2.zero)
+        {
+            PlayerAnimation.instance.SetAnimBool("walking", false);
+        }
+        else
+        {
+            PlayerAnimation.instance.SetAnimBool("walking", true);
+        }
+        return vectorToReturn;
     }
     void OnEnable()
     {
-        playerInputActions.Enable();
+        EnablePlayerControls();
     }
 
     void OnDisable()
     {
+        DisablePlayerControls();
+    }
+
+    public void DisablePlayerControls()
+    {
         playerInputActions.Disable();
+    }
+
+    public void EnablePlayerControls()
+    {
+        playerInputActions.Enable();
     }
 }

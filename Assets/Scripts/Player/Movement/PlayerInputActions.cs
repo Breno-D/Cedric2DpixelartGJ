@@ -127,15 +127,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Eat"",
-                    ""type"": ""Button"",
-                    ""id"": ""b0bb1569-ea29-4149-b934-9e0788403e9d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -281,17 +272,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Food2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b0455d2a-4e80-40e6-afab-3dea234d7be4"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Eat"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -304,7 +284,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Food1 = m_Player.FindAction("Food1", throwIfNotFound: true);
         m_Player_Food2 = m_Player.FindAction("Food2", throwIfNotFound: true);
-        m_Player_Eat = m_Player.FindAction("Eat", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -389,7 +368,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Food1;
     private readonly InputAction m_Player_Food2;
-    private readonly InputAction m_Player_Eat;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -417,10 +395,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Food2".
         /// </summary>
         public InputAction @Food2 => m_Wrapper.m_Player_Food2;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Eat".
-        /// </summary>
-        public InputAction @Eat => m_Wrapper.m_Player_Eat;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -459,9 +433,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Food2.started += instance.OnFood2;
             @Food2.performed += instance.OnFood2;
             @Food2.canceled += instance.OnFood2;
-            @Eat.started += instance.OnEat;
-            @Eat.performed += instance.OnEat;
-            @Eat.canceled += instance.OnEat;
         }
 
         /// <summary>
@@ -485,9 +456,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Food2.started -= instance.OnFood2;
             @Food2.performed -= instance.OnFood2;
             @Food2.canceled -= instance.OnFood2;
-            @Eat.started -= instance.OnEat;
-            @Eat.performed -= instance.OnEat;
-            @Eat.canceled -= instance.OnEat;
         }
 
         /// <summary>
@@ -556,12 +524,5 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFood2(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Eat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEat(InputAction.CallbackContext context);
     }
 }

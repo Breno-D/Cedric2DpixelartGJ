@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Counter : MonoBehaviour
 {
     public float maxCount;
     public float currCount;
     [SerializeField] float zeroTimer;
+    [SerializeField] Image counterFill;
+    [SerializeField] GameObject endOfGamePanel;
     float target;
 
     void Awake()
@@ -26,12 +29,17 @@ public class Counter : MonoBehaviour
         currCount = Mathf.MoveTowards(currCount, 0, target);
         if(currCount <= 0)
         {
-            // EOG
+            FindObjectOfType<PlayerInput>().DisablePlayerControls();
+            endOfGamePanel.SetActive(true);
+        }
+        else if(currCount > maxCount)
+        {
+            currCount = maxCount;
         }
     }
 
     void UpdateCounterUI()
     {
-        
+        counterFill.fillAmount = currCount/maxCount;
     }
 }

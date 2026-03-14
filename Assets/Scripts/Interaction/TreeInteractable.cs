@@ -12,9 +12,15 @@ public class TreeInteractable : InteractableObject
     private IEnumerator PlayerTree()
     {
         yield return null;
-        // change animation to cutting tree
-        // disable player movement
-        // wait
+        AudioManager.instance.PlaySFX("cut");
+        PlayerAnimation.instance.SetAnimBool("cut", true);
+        playerControls.DisablePlayerControls();
+
+        yield return new WaitForSeconds(3f);
+
+        AudioManager.instance.StopSFX();
+        playerControls.EnablePlayerControls();
+        PlayerAnimation.instance.SetAnimBool("cut", false);
         int woodToAdd = Random.Range(1, 4);
         PlayerItems.instance.ChangeWoodAmount(woodToAdd);
         yield return null;

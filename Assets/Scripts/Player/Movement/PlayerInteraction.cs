@@ -14,11 +14,27 @@ public class PlayerInteraction : MonoBehaviour
 
     void Start()
     {
-        GetComponent<PlayerInput>().GetInteractEvent().AddListener(InteractFunction);      
+        GetComponent<PlayerInput>().GetInteractEvent().AddListener(InteractFunction);
+        AddEatListener();  
     }
 
     void InteractFunction()
     {
         interactionTrigger.Invoke();
+    }
+
+    public void AddEatListener()
+    {
+        interactionTrigger.AddListener(EatFood);  
+    }
+
+    public void RemoveEatListener()
+    {
+        interactionTrigger.RemoveListener(EatFood); 
+    }
+    
+    void EatFood()
+    {
+        FindObjectOfType<HungerCounter>().AddHunger(GetComponent<PlayerItems>().GetHungerHealAmount());
     }
 }

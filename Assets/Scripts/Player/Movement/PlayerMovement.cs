@@ -8,9 +8,13 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     Vector2 moveVector;
     PlayerInput playerInput;
+    bool facingRight;
+    bool walkSfxPlaying;
 
     void Awake()
     {
+        walkSfxPlaying = false;
+        facingRight = true;
         rb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
     }
@@ -23,5 +27,30 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(moveVector.x * moveVel, moveVector.y * moveVel);
+
+        if((Vector2)rb.velocity != Vector2.zero)
+        {
+            if(!walkSfxPlaying)
+            {
+                AudioManager.instance.PlayWalk();
+                walkSfxPlaying = true;
+            }
+        }
+        else
+        {
+            AudioManager.instance.StopWalk();
+            walkSfxPlaying = false;
+        }
+
+        if(moveVector.x < 0 && facingRight || moveVector.x > 0 && !facingRight) 
+        {
+            TurnPlayer();
+        }
+    }
+
+    void TurnPlayer()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0f, 180f, 0f);
     }
 }

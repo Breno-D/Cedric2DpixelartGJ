@@ -41,15 +41,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Eat",
-                    "type": "Button",
-                    "id": "b0bb1569-ea29-4149-b934-9e0788403e9d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -193,17 +184,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Food2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b0455d2a-4e80-40e6-afab-3dea234d7be4",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Eat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

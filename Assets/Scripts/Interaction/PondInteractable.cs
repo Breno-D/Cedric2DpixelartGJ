@@ -12,10 +12,15 @@ public class PondInteractable : InteractableObject
     private IEnumerator PlayerFish()
     {
         yield return null;
-        // disable player movement
-        // change player animation to fishing
+        playerControls.DisablePlayerControls();
+        AudioManager.instance.PlaySFX("fish");
+        PlayerAnimation.instance.SetAnimBool("fishing", true);
+        
         yield return new WaitForSeconds(5f);
+
         PlayerItems.instance.ChangeFishAmount(1);
-        // finish fishing animation
+        AudioManager.instance.StopSFX();
+        PlayerAnimation.instance.SetAnimBool("fishing", false);
+        playerControls.EnablePlayerControls();
     }
 }
